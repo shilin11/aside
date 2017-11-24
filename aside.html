@@ -21,7 +21,7 @@
     .aside{
         width: 20%;
         background: #24292E;
-        height: 100%;
+        min-height: 100%;
         overflow: hidden;
     }
     .atop{
@@ -31,7 +31,7 @@
         margin-left: 40px;
         line-height: 30px;
         margin-top: 20px;
-
+        cursor: pointer;
     }
     .aside>div{
         height: auto;
@@ -42,6 +42,7 @@
         font-size: 14px;
         margin-left: 40px;
         line-height: 26px;
+        cursor: pointer;
     }
     .show{
         display: none;
@@ -49,19 +50,17 @@
 </style>
 <body>
 <div class="aside">
-    <mybuttons name="基础"></mybuttons>
-    <mybuttons name="工具"></mybuttons>
-    <mybuttons name="更多"></mybuttons>
+    <mybuttons name="基础" :list="list1"></mybuttons>
+    <mybuttons name="工具" :list="list2"></mybuttons>
+    <mybuttons name="更多" :list="list3"></mybuttons>
 </div>
 <script>
     Vue.component("mybuttons",{
-        props:['name','num'],
+        props:['name','list'],
         template:"<div>"+
-        "<div class='atop'  @click='change(num)'>{{name}}</div>" +
+        "<div class='atop'  @click='change()'>{{name}}</div>" +
         "    <div class='con' :class='{show:show}'>" +
-        "        <div>安装</div>" +
-        "        <div>安装</div>" +
-        "        <div>安装</div>" +
+        "        <div  v-for='data in list'>{{data}}</div>" +
         "    </div>"+
         "</div>",
         data:function () {
@@ -79,7 +78,12 @@
         }
     });
     var vm=new Vue({
-        el:".aside"
+        el:".aside",
+        data:{
+            list1:["安装","介绍","实例","模板语法"],
+            list2:["生产环境部署","单文件组件","单元测试"],
+            list3:["对比其他框架","认识团队"]
+        }
     })
 </script>
 </body>
